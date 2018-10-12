@@ -27,7 +27,7 @@ app.get('/user', function(req,res){
 
 io.on('connection', function(socket){
 
-    socket.on('new_client', function(username){
+    socket.on('new_client', function(username,){
         username = ent.encode(username);
         console.log(username);
         if(username === '') {
@@ -36,7 +36,7 @@ io.on('connection', function(socket){
             socket.emit('redirect', destination);
         }
         else {
-            var query = "SELECT * FROM `member` WHERE account = '" + username + "' AND password = '" + 123456 + "'";
+            var query = "SELECT * FROM `member` WHERE account = '" + username + "' AND password = '" + password + "'";
             pool.query(query, function(error,result){
                 if(result.length === 0 || error) {
                     var destination = '/error';
